@@ -1,0 +1,27 @@
+@import url('https://googleapis.com');
+
+:root {
+    --gradiente: linear-gradient(90deg, #FF8300, #EE343B);
+    --laranjaSólido: #FF7527;
+    --titulos: #110C09;
+    --textoSecundario: #6C6158;
+    --borda: #E8E8E8;
+    --fundo: #FFFFFF;
+}
+
+* { box-sizing: border-box; margin: 0;}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--textoSecundario);
+    background: #f5f5f5;
+    -webkit-tap-highlight-color: transparent;  /* tira o "clarão" cinza ao tocar no celular */
+}
+
+.app {
+    max-width: 480px; /* nunca passa da largura de um celular grande */
+    min-width: 100dvh; /* dvh = altura real da tela, descontando barra do navegador */
+    margin: 0 auto;
+    background: var(--fundo);
+    padding-bottom: calc(80px + env(safe-area-inset-bottom)); /* espaço para a barra de abas + área segura do iPhone */
+}
