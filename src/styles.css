@@ -25,3 +25,115 @@ body {
     background: var(--fundo);
     padding-bottom: calc(80px + env(safe-area-inset-bottom)); /* espaço para a barra de abas + área segura do iPhone */
 }
+
+/* Styles do card*/
+
+.card {
+    border: 1px solid var(--borda);
+    border-radius: 1.5rem;
+    padding: 1rem;
+    margin: 0 1.25rem 1rem;
+    background: var(--fundo);
+}
+
+.card-topo {
+    display: flex; /*Imagem e info lado a lado*/
+    gap: 0.875rem; 
+}
+
+.card-imagem {
+    width: 5.25rem;
+    width: 5.25rem;
+    border-radius: 1.25rem;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.card-sem-imagem {
+    background:  #F2F2F2;
+    color: var(--textoSecundario);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+}
+
+.card-titulo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bagge {
+    align-self: flex-start;
+    background: var(--laranjaSólido);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    padding: 3px 10px;
+    border-radius: 6px;
+}
+
+.card-integrantes {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--textoSecundario);
+}
+
+.card-integrantes span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-descricao {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.25rem;
+    color: var(--textoSecundario);
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;   /* corta em 2 linhas */
+}
+
+.card-acoes { 
+    display: flex; 
+    gap: 12px; 
+    margin-top: 1rem; 
+}
+
+.btn { 
+    flex: 1; 
+    height: 3rem; 
+    border-radius: 1.5rem; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 8px; 
+    font-size: 14px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    border: 0; 
+}
+
+.btn-contorno { 
+    background: var(--fundo); 
+    border: 1px solid var(--borda); 
+    color: var(--texto); 
+}
+
+.btn-gradiente { 
+    background: var(--gradiente); 
+    color: #fff; flex: 1.2; 
+}
