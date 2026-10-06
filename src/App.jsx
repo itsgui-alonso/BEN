@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, replace } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { ProjetosPage } from './pages/ProjetosPage';
 import { BottomNav } from './components/BottomNav';
 
