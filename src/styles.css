@@ -204,3 +204,64 @@ body {
     display: flex;
     cursor: pointer;
 }
+
+/* Styles Header */
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 1.25rem;
+}
+
+.avatar {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: 2px solid var(--laranjaSólido);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-nome {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-nome span {
+    font-size: 13px;
+    color: var(--textoSecundario);
+}
+
+.chip-evento {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 2rem;
+    padding: 0 12px;
+    border: 1px solid var(--borda);
+    border-radius: 1rem;
+    font-size: 12px;
+}
+
+.ponto {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--laranjaSólido);
+}
+
+.icone-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--borda);
+    background: var(--fundo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
