@@ -265,3 +265,35 @@ body {
     justify-content: center;
     cursor: pointer;
 }
+
+.bottom-nav { 
+    position: fixed; 
+    bottom: 0; 
+    left: 50%; 
+    transform: 
+    translateX(-50%); 
+    width: 100%; 
+    max-width: 30rem; /* fixa embaixo, alinhada ao container */
+    display: flex; 
+    justify-content: space-around; 
+    padding: 10px 8px calc(10px + env(safe-area-inset-bottom)); 
+    background: var(--fundo); 
+    border-top: 1px solid var(--borda); 
+}
+
+.aba { 
+    display: flex; 
+    align-items: center; 
+    gap: 6px; 
+    padding: 8px 12px; 
+    border-radius: 20px; 
+    color: var(--textoSecundario); 
+    text-decoration: none; 
+    font-size: 14px; 
+}
+
+.aba-ativa { 
+    background: var(--gradiente); 
+    color: #fff; 
+    font-weight: 700; 
+}   
