@@ -1,4 +1,4 @@
-@import url('https://googleapis.com');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
 :root {
     --gradiente: linear-gradient(90deg, #FF8300, #EE343B);
@@ -193,7 +193,7 @@ body {
     border: 0;
     outline: 0;
     font-size: 1rem;
-    color: var(--fundo);
+    color: var(--titulos);
     background: transparent;
 }
 

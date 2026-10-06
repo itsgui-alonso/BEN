@@ -14,7 +14,7 @@ export function ProjetosPage() {
 
     const { data: categorias = [] } = useCategorias() // = [] evita eero enquanto carrega
     const {
-        data, isLoading, isError, referch,
+        data, isLoading, isError, refetch,
         fetchNextPage, hasNextPage, isFetchingNextPage,
     } = useProjetos({ busca, categoria: categoriaId})
 
@@ -48,7 +48,7 @@ export function ProjetosPage() {
             <div style={{ height: 20 }} />
 
             {isLoading && <p className="vazio">Carregando...</p>}
-            {isError && <button className="vazio" onClick={() => referch()}>Não foi possível carregar. Toque para tentar de novo.</button>}
+            {isError && <button className="vazio" onClick={() => refetch()}>Não foi possível carregar. Toque para tentar de novo.</button>}
             {!isLoading && !isError && projetos.length  === 0 && <p className="vazio">Nenhum projeto encontrado.</p>}
 
             {projetos.map((p) => (

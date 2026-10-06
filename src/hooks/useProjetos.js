@@ -6,13 +6,13 @@ export function useProjetos({ busca, categoria }){ // Recebe o texto da busca e 
         queryKey: ['projetos', { busca, categoria }], 
 
         queryFn: ({ pageParam }) => { // pageParam é o numero da pagina
-            listarProjetos({ busca, categoria, page: pageParam, limit: 10 }) // chama a API pedindo 10 projetos
+           return listarProjetos({ busca, categoria, page: pageParam, limit: 10 }) // chama a API pedindo 10 projetos
         },
         initialPageParam: 1,
 
         getNextPageParam: (ultimaPagina) => { // depois de cada busca, o react query pergunta: qual a proxima pagina
-            const { page, totalPagina } = ultimaPagina.paginacao // minha API vai devolver a pagina atual e o total de paginas
-            return page < totalPagina ? page + 1 : undefined // se ainda tem paginas, devolve - se não undefined, acabaram as paginas
+            const { page, totalPaginas } = ultimaPagina.paginacao // minha API vai devolver a pagina atual e o total de paginas
+            return page < totalPaginas ? page + 1 : undefined // se ainda tem paginas, devolve - se não undefined, acabaram as paginas
         }
     })
 }
