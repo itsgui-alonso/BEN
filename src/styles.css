@@ -172,3 +172,35 @@ body {
     border-color: transparent; 
     font-weight: 700; 
 }
+
+/* Styles Busca */
+
+.busca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 3.25rem;
+    margin: 0 1.25rem;
+    padding: 0 1rem;
+    border: 1px solid var(--borda);
+    border-radius: 1.6rem;
+    color: var(--textoSecundario);
+}
+
+.busca input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    font-size: 1rem;
+    color: var(--fundo);
+    background: transparent;
+}
+
+.busca-limpar {
+    border: 0;
+    background: none;
+    color: var(--textoSecundario);
+    display: flex;
+    cursor: pointer;
+}
