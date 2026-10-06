@@ -297,3 +297,39 @@ body {
     color: #fff; 
     font-weight: 700; 
 }   
+
+/* Styles ProjetosPage */
+
+.pill { 
+    display: inline-block; 
+    margin: 8px 0 0 20px; 
+    padding: 6px 12px; 
+    border: 1px solid var(--borda); 
+    border-radius: 16px; 
+    font-size: 12px; 
+    color: var(--laranjaSólido); 
+}
+
+.titulo { 
+    font-size: 44px; 
+    font-weight: 800; 
+    margin: 12px 20px 0; 
+}
+
+.subtitulo { 
+    font-size: 14px; 
+    color: var(--textoSecundario); 
+    line-height: 20px; 
+    margin: 6px 20px 16px; 
+}
+
+.vazio { 
+    display: block; 
+    text-align: center; 
+    color: var(--textoSecundario); 
+    padding: 32px 20px; 
+    background: none; 
+    border: 0; 
+    width: 100%; 
+    font-size: 14px; 
+}
