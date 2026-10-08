@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef} from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import { SearchBar } from "../components/SearchBar";
 import { CategoriaChips } from "../components/CategoriaChips";
@@ -8,6 +9,7 @@ import { useProjetos } from "../hooks/useProjetos";
 import { useCategorias } from "../hooks/useCategorias";
 
 export function ProjetosPage() {
+    const navigate = useNavigate()
     const [textoBusca, setTextoBusca] = useState('') // o que a pessoa vai digitar
     const [categoriaId, setCategoriaId] = useState(null) // null = "Todos"
     const busca = useDebounce(textoBusca, 400) // versão atrasada que vai apra a API
@@ -56,7 +58,7 @@ export function ProjetosPage() {
                     key={p.id}
                     projeto={p}
                     onVerMapa={(proj) => console.log('mapa', proj.stand_projeto)}   // TODO: navegar para o mapa
-                    onVerMais={(proj) => console.log('detalhe', proj.id)}           // TODO: navegar para o detalhe
+                    onVerMais={(proj) => navigate(`/projetos/${proj.id}`)}          // TODO: navegar para o detalhe
                 />
             ))}
 
