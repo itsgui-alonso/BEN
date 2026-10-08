@@ -1,5 +1,5 @@
 export function CategoriaChips({ categorias, selecionada, onSelecionar }){
-    const itens = [{ id: null, nome_categoria: 'Todos'}, ...categorias] // Todos = item falso com id null (sem filtro)
+    const itens = [{ id: null, nome_categoria: 'TODOS'}, ...categorias] // Todos = item falso com id null (sem filtro)
 
     return (
         <div className="chips" role="tablist">

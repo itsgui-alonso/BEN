@@ -36,7 +36,7 @@ export function ProjetosPage() {
     }, [hasNextPage, isFetchingNextPage, fetchNextPage])
 
     return (
-        <main>
+        <main className="projetos-page">
             <Header nome="Mariana Costa" tipo="Visitante" evento="Bentotec 2026" />
             <span className="pill">Feira 2026 · em curso</span>
             <h1 className="titulo">Projetos</h1>

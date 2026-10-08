@@ -9,18 +9,27 @@
     --fundo: #FFFFFF;
 }
 
-* { box-sizing: border-box; margin: 0;}
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+}
 
-body {
+html, body, #root {
     font-family: 'Poppins', sans-serif;
     color: var(--textoSecundario);
     background: #f5f5f5;
     -webkit-tap-highlight-color: transparent;  /* tira o "clarão" cinza ao tocar no celular */
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 .app {
     max-width: 480px; /* nunca passa da largura de um celular grande */
-    min-width: 100dvh; /* dvh = altura real da tela, descontando barra do navegador */
+    min-height: 100dvh; /* dvh = altura real da tela, descontando barra do navegador */
     margin: 0 auto;
     background: var(--fundo);
     padding-bottom: calc(80px + env(safe-area-inset-bottom)); /* espaço para a barra de abas + área segura do iPhone */
@@ -32,7 +41,7 @@ body {
     border: 1px solid var(--borda);
     border-radius: 1.5rem;
     padding: 1rem;
-    margin: 0 1.25rem 1rem;
+    margin: 0 0 1rem;
     background: var(--fundo);
 }
 
@@ -43,7 +52,7 @@ body {
 
 .card-imagem {
     width: 5.25rem;
-    width: 5.25rem;
+    height: 5.25rem;
     border-radius: 1.25rem;
     object-fit: cover;
     flex-shrink: 0;
@@ -72,17 +81,18 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: var(--titulos);
 }
 
-.bagge {
+.badge {
     align-self: flex-start;
-    background: var(--laranjaSólido);
+    background: var(--gradiente);
     color: #fff;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: .5px;
-    padding: 3px 10px;
-    border-radius: 6px;
+    padding: 5px 10px;
+    border-radius: 14px;
 }
 
 .card-integrantes {
@@ -117,8 +127,12 @@ body {
     margin-top: 1rem; 
 }
 
+
 .btn { 
-    flex: 1; 
+    flex: 1;
+    min-width: 0;
+    padding: 0 0.75rem;
+    white-space: nowrap; 
     height: 3rem; 
     border-radius: 1.5rem; 
     display: flex; 
@@ -128,13 +142,13 @@ body {
     font-size: 14px; 
     font-weight: 600; 
     cursor: pointer; 
-    border: 0; 
+    border: 0;
 }
 
 .btn-contorno { 
     background: var(--fundo); 
     border: 1px solid var(--borda); 
-    color: var(--texto); 
+    color: var(--titulos); 
 }
 
 .btn-gradiente { 
@@ -146,7 +160,8 @@ body {
 
 .chips { 
     display: flex; 
-    gap: 10px; 
+    gap: 10px;
+    margin: 0 -1.25rem; 
     padding: 0 1.25rem; 
     overflow-x: auto; 
     scrollbar-width: none; 
@@ -167,7 +182,7 @@ body {
 }
 
 .chip-ativo { 
-    background: var(--fundo); 
+    background: var(--gradiente); 
     color: #fff; 
     border-color: transparent; 
     font-weight: 700; 
@@ -180,7 +195,7 @@ body {
     align-items: center;
     gap: 10px;
     height: 3.25rem;
-    margin: 0 1.25rem;
+    margin: 0;
     padding: 0 1rem;
     border: 1px solid var(--borda);
     border-radius: 1.6rem;
@@ -211,7 +226,7 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 1.25rem;
+    padding: 12px 0;
 }
 
 .avatar {
@@ -223,17 +238,26 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .header-nome {
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
 .header-nome span {
     font-size: 13px;
     color: var(--textoSecundario);
+}
+
+.header-nome strong,
+.header-nome span {
+    white-space: nowrap;              /* uma linha só */
+    overflow: hidden;                 /* esconde o que passar */
+    text-overflow: ellipsis;          /* mostra "..." no corte */
 }
 
 .chip-evento {
@@ -245,6 +269,8 @@ body {
     border: 1px solid var(--borda);
     border-radius: 1rem;
     font-size: 12px;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .ponto {
@@ -264,6 +290,7 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .bottom-nav { 
@@ -277,8 +304,9 @@ body {
     display: flex; 
     justify-content: space-around; 
     padding: 10px 8px calc(10px + env(safe-area-inset-bottom)); 
-    background: var(--fundo); 
-    border-top: 1px solid var(--borda); 
+    background: var(--fundo);
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05); 
+    border-top: 1px solid var(--borda);
 }
 
 .aba { 
@@ -289,7 +317,8 @@ body {
     border-radius: 20px; 
     color: var(--textoSecundario); 
     text-decoration: none; 
-    font-size: 14px; 
+    font-size: 14px;
+    white-space: nowrap; 
 }
 
 .aba-ativa { 
@@ -299,10 +328,13 @@ body {
 }   
 
 /* Styles ProjetosPage */
-
+.projetos-page {
+    width: 100%;
+    padding: 0 1.25rem;
+}
 .pill { 
     display: inline-block; 
-    margin: 8px 0 0 20px; 
+    margin: 8px 0 0; 
     padding: 6px 12px; 
     border: 1px solid var(--borda); 
     border-radius: 16px; 
@@ -311,16 +343,17 @@ body {
 }
 
 .titulo { 
-    font-size: 44px; 
+    font-size: clamp(2rem, 11vw, 2.75rem); 
     font-weight: 800; 
-    margin: 12px 20px 0; 
+    margin: 12px 0 0;
+    color: var(--titulos); 
 }
 
 .subtitulo { 
     font-size: 14px; 
     color: var(--textoSecundario); 
     line-height: 20px; 
-    margin: 6px 20px 16px; 
+    margin: 6px 0 16px; 
 }
 
 .vazio { 
@@ -332,4 +365,12 @@ body {
     border: 0; 
     width: 100%; 
     font-size: 14px; 
+}
+
+@media (max-width: 360px) {          /* só vale para telas até 360px de largura */
+    .projetos-page { padding: 0 1rem; }              /* margem lateral menor */
+    .chips { margin: 0 -1rem; padding: 0 1rem; }     /* acompanha a margem nova */
+    .aba { padding: 8px; gap: 4px; font-size: 12px; }/* abas mais compactas para caberem as 4 */
+    .btn { font-size: 13px; gap: 6px; }              /* botões do card mais enxutos */
+    .chip-evento { display: none; }                  /* esconde o chip do evento, falta espaço no cabeçalho */
 }
