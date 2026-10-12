@@ -6,7 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { Header } from "../components/Header";
 import { useProjeto } from "../hooks/useProjetos";
 import { validarQrCode } from "../services/sessionServices";
-import { flushSync } from "react-dom";
+
 
 export function QrScannerPage(){
     const { id } = useParams(); // id do projeto vindo da URL
@@ -19,7 +19,7 @@ export function QrScannerPage(){
         onSuccess: () => navigate(`/projetos/${id}`) // TEMPORÁRIO: depois vai para a próxima etapa do voto
     })
 
-    const aoEscanear = (cogigos) => { // a lib chama isto quando lê um QR
+    const aoEscanear = (codigos) => { // a lib chama isto quando lê um QR
         const texto = codigos[0]?.rawValue?.trim() // texto do primeiro QR lido
         if(!texto) return  // leitura vazia: ignora
         validacao.mutate(texto) // envia ao back para validar

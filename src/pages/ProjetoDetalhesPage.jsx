@@ -184,7 +184,7 @@ export function ProjetoDetalhePage() {
             </button>
             <button
               className="btn btn-gradiente btn-votar"
-              onClick={() => console.log("votar", projeto.id)}
+              onClick={() => navigate(`/projetos/${id}/votar`)}
             >
               <Vote size={22} /> Votar
             </button>
