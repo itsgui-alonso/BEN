@@ -20,3 +20,19 @@ export async function apiGet(caminho, params = {}) { // caminho = "/projetos"; p
     }
     return json.dados
 }
+
+export async function apiPost(caminho, corpo) {
+    const resposta = await fetch(`${API_URL}${caminho}`, {
+        method: 'POST',
+        headers:  { 'Content-Type': 'application/json' }, // avisa que é em JSON
+        body: JSON.stringify(corpo) // transforma em JSON
+    })
+
+    const json = await resposta.json()
+
+    if(!resposta.ok){
+        throw new Error(json.erro ?? 'Erro ao falhar com servidor')
+    }
+
+    return json.dados
+}
