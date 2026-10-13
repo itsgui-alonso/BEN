@@ -588,7 +588,80 @@ html, body, #root {
     font-size: 1.125rem;
     font-weight: 700;
 }
- 
+
+/* Styles do QrScannerPage */
+.ScannerPage {
+    width: 100%;
+    padding:  0 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.scanner-topo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.5rem 0.25rem;
+}
+
+.scanner-topo small {
+    display: block;
+    font-size: 11px;
+}
+
+.scanner-topo strong {
+    color: var(--titulos);
+}
+
+.etapas {
+    display: flex;
+    gap: 6px;
+    margin: 4px 0 12px;
+}
+
+.etapa {
+    flex: 1;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--borda);
+}
+
+.etapa-ativa {
+    background: var(--gradiente);
+}
+
+.scanner-moldura {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    margin: 1rem 0;
+    overflow: hidden;
+    border: 2px solid var(--laranjaSólido);
+    border-radius: 2rem;
+    background: #000;
+}
+
+.scanner-erro {
+    color: #EE343B;
+    font-size: 13px;
+    text-align: center;
+}
+
+.scanner-info {
+    color: var(--laranjaSólido);
+    font-size: 13px;
+    text-align: center;
+}
+
+.btn-cancelar {
+    width: 100%;
+    margin-top: 12px;
+    padding: 10px;
+    border: 1px solid var(--borda);
+    border-radius: 999px;
+    background: var(--fundo);
+    font-weight: 600;
+    cursor: pointer;
+}
 @media (max-width: 340px) {
     .detalhe-linha { grid-template-columns: 1fr; }
 }

@@ -35,6 +35,7 @@ export function QrScannerPage(){
 
   return (
     <>
+        <main className="ScannerPage">
         <Header nome="Mariana Costa" tipo='Visitante' evento='BentoTec 2026' />
 
         <div className="scanner-topo">
@@ -80,6 +81,8 @@ export function QrScannerPage(){
             </button>
 
         </section>
+    </main>
     </>
+    
   )
 }
