@@ -68,7 +68,6 @@ export function EtapaConfirmar({ projeto, onVotado, onNao, onRecomecar }) {
         ) : (
           <div className="caixa-projeto-img caixa-projeto-vazia" />
         )}{" "}
-        // sem imagem: quadrado em gradiente
         <div>
           <strong>{projeto.nome_projeto}</strong>
           <small>
