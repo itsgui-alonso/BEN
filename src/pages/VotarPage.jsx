@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { Header } from "../components/Header";
 import { Etapas } from "../components/votacao/Etapas";
+import { EtapaEscolha } from "../components/votacao/EtapaEscolha";
 import { EtapaScanner } from "../components/votacao/EtapaScanner";
 import { EtapaCodigo } from "../components/votacao/EtapaCodigo";
 import { EtapaIdentificada } from "../components/votacao/EtapaIdentificada";
@@ -10,14 +11,14 @@ import { EtapaConfirmar } from "../components/votacao/EtapaConfirmar";
 import { EtapaRegistrado } from "../components/votacao/EtapaRegistrado";
 import { useProjeto } from "../hooks/useProjetos";
 
-const SEGMENTOS = { scanner: 2, codigo: 2, identificada: 3, confirmar: 4, registrado: 5 }
+const SEGMENTOS = {  escolha: 1, scanner: 2, codigo: 2, identificada: 3, confirmar: 4, registrado: 5 }
 
 export function VotarPage(){
     const { id } = useParams() // id do projeto na URL
     const navigate = useNavigate() // navegar pelas telas
     const { data: projeto } = useProjeto(id) // dados do projeto...
 
-    const [etapa, setEtapa] = useState('scanner') // as etapas criadas
+    const [etapa, setEtapa] = useState('escolha') // as etapas criadas
     const [codigo, setCodigo] = useState('') // código do crachá validado
     const [dataHora, setDataHora] = useState('') // quando o voto foi feito
 
@@ -43,14 +44,16 @@ export function VotarPage(){
             </div>
             <Etapas atual={SEGMENTOS[etapa]} />
 
+            {etapa === 'escolha' && <EtapaEscolha onCodigo={() => setEtapa('codigo')} onScanner={() => setEtapa('scanner')} />}
+
             {etapa === 'scanner' && <EtapaScanner onValidado={validado} onDigitar={() => setEtapa('codigo')} onCancelar={sair} />}
 
-            {etapa === 'codigo' && <EtapaCodigo onValidado={validado} onVoltar={() => setEtapa('scanner')} />}
+            {etapa === 'codigo' && <EtapaCodigo onValidado={validado} onVoltar={() => setEtapa('escolha')} />}
 
             {etapa === 'identificada' && <EtapaIdentificada codigo={codigo} onContinuar={() => setEtapa('confirmar')} />}
 
             {etapa === 'confirmar' && projeto && (
-                <EtapaConfirmar projeto={projeto} onVotado={votado} onNao={sair} onRecomecar={() => setEtapa('scanner')} />
+                <EtapaConfirmar projeto={projeto} onVotado={votado} onNao={sair} onRecomecar={() => setEtapa('escolha')} />
             )}
             
             {etapa === 'registrado' && projeto && (

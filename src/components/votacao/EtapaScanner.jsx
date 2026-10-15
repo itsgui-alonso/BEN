@@ -46,7 +46,6 @@ export function EtapaScanner({ onValidado, onDigitar, onCancelar }){
       {validacao.isPending && <p className="scanner-info">Validando crachá...</p>}
       {validacao.isError && <p className="scanner-erro">{validacao.error.message}</p>}
 
-      <button className="btn-cancelar" onClick={onDigitar}>Digitar o código do crachá</button> {/* NOVO: alternativa ao QR */}
       <button className="btn-cancelar" onClick={onCancelar}>Cancelar</button>
     </section>
   );

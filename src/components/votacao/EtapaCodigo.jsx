@@ -21,8 +21,8 @@ export function EtapaCodigo({ onValidado, onVoltar }){
     }
 
     return (
-        <main className="Etapa-codigo">
-            <section className="sesao votacao-card">
+        <main className="etapa-codigo">
+            <section className="secao votacao-card">
                 <h1 className="votacao-titulo">Código do Crachá</h1>
                 <p className="votacao-sub">Insira o código impresso no seu crachá</p>
 
@@ -39,7 +39,7 @@ export function EtapaCodigo({ onValidado, onVoltar }){
 
                     {validacao.isError && <p className="scanner-erro">{validacao.error.message}</p>}
 
-                    <div className="votacao-botes">
+                    <div className="votacao-botoes">
                         <button type="button" className="btn-secundario" onClick={onVoltar}>Voltar</button>
                         <button type="submit" className="btn-primario" disabled={validacao.isPending}>
                             <Vote size={16} />

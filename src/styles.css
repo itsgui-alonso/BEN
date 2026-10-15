@@ -731,3 +731,41 @@ html, body, #root {
 .recibo strong { font: 700 15px 'Poppins', sans-serif; color: #534f4d; }
 .recibo span { font: 500 9px 'Poppins', sans-serif; color: #787574; }
 .recibo-pulseira b { color: #ff8300; }                                  /* código da pulseira em laranja */
+
+/* ---- Etapa 1: escolher como validar a pulseira ---- */
+
+/* O card clicável (medidas do Figma: borda #eae7e5, raio 22px) */
+.opcao-pulseira {
+  display: flex;               /* ícone e texto lado a lado */
+  align-items: center;         /* centraliza na vertical */
+  gap: 14px;                   /* espaço entre ícone e texto */
+  width: 100%;                 /* ocupa a largura toda do card */
+  margin-bottom: 16px;         /* espaço entre os dois cards */
+  padding: 16px 18px;
+  text-align: left;            /* <button> centraliza texto por padrão; aqui não */
+  border: 1px solid #eae7e5;
+  border-radius: 22px;
+  background: #fefefe;
+  font-family: 'Poppins', sans-serif;  /* <button> não herda a fonte sozinho */
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s; /* suaviza hover e clique */
+}
+.opcao-pulseira:hover { border-color: var(--laranjaSólido); }   /* mouse em cima */
+.opcao-pulseira:active { transform: scale(0.98); }              /* "afunda" ao tocar */
+.opcao-pulseira:focus-visible { outline: 2px solid var(--laranjaSólido); outline-offset: 2px; } /* navegação por teclado */
+
+/* O círculo laranja com o ícone branco */
+.opcao-icone {
+  display: grid; place-items: center;  /* centraliza o ícone no círculo */
+  flex-shrink: 0;                      /* o círculo nunca "amassa" se o texto for grande */
+  width: 44px; height: 44px;
+  border-radius: 50%;                  /* 50% = círculo */
+  background: linear-gradient(135deg, #FF8300, #EE343B); /* degradê diagonal do Figma */
+  color: #fff;                         /* o ícone da lucide usa a cor do texto */
+  box-shadow: 0 6px 14px -6px rgba(255, 117, 39, 0.6);
+}
+
+/* Título + descrição empilhados */
+.opcao-texto { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.opcao-texto strong { font-size: 15px; font-weight: 700; color: #504d4a; }
+.opcao-texto small { font-size: 11px; font-weight: 700; color: #aaa39e; line-height: 1.4; }
