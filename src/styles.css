@@ -589,6 +589,8 @@ html, body, #root {
     font-weight: 700;
 }
 
+.coracao-ativo svg { fill: #EE343B; color: #EE343B; }   /* coração preenchido de vermelho quando curtido */
+
 /* Styles do QrScannerPage */
 .ScannerPage {
     width: 100%;

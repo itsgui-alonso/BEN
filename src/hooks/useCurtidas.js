@@ -23,6 +23,7 @@ export function useCurtidas(){
             return { anterior };
         },
         onError: (_erro, _id, contexto) => {               // deu erro: volta como estava
+            console.error('Falha ao curtir/descurtir:', _erro.message) //mostra o motivo no console (F12)
             queryClient.setQueryData(CHAVE, contexto.anterior);
         },
         onSettled: () => queryClient.invalidateQueries({ queryKey: CHAVE }), // confirma com o servidor

@@ -14,6 +14,7 @@ import {
 import { Header } from "../components/Header";
 import { SecaoCard } from "../components/SecaoCard";
 import { useProjeto } from "../hooks/useProjetos";
+import { useCurtidas } from "../hooks/useCurtidas";
 
 const iniciais = (nome) => {
   if (!nome) return "";
@@ -26,10 +27,11 @@ const iniciais = (nome) => {
 };
 
 export function ProjetoDetalhePage() {
-  const { id } = useParams(); // vai pegar o 12 por exemplo, do parametro da URL
-  const navigate = useNavigate();
-  const [curtido, setCurtido] = useState(false);
-  const { data: projeto, isLoading, isError, refetch } = useProjeto(id); // busca o projeto na API
+  const { id } = useParams() // vai pegar o 12 por exemplo, do parametro da URL
+  const navigate = useNavigate()
+  const { estaCurtido, alternar } = useCurtidas()
+  const curtido = estaCurtido(id)
+  const { data: projeto, isLoading, isError, refetch } = useProjeto(id) // busca o projeto na API
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -175,8 +177,8 @@ export function ProjetoDetalhePage() {
 
           <div className="barra-acao">
             <button
-              className="btn-curtir"
-              onClick={() => setCurtido((v) => !v)}
+              className={`btn-curtir ${curtido ? 'coracao-ativo' : ''}`}
+              onClick={() => alternar(id)}
               aria-pressed={curtido}
               aria-label={curtido ? "Remover curtida" : "Curtir projeto"}
             >

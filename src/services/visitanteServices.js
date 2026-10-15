@@ -1,14 +1,24 @@
-const CHAVE = 'bentovote_visitante' // nome com que o id fica salvo no navegador
+const CHAVE = 'bentovote_visitante'
+
+function gerarUUID(){
+    if(typeof crypto.randomUUID === 'function'){
+        return crypto.randomUUID()
+    }
+    // Plano B: UUID v4 válido com números aleatórios do navegador
+    return '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, (c) =>
+        (Number(c) ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (Number(c) / 4)))).toString(16)
+    )
+}
 
 export function obterVisitanteId(){
     try{
-        let id = localStorage.getItem(CHAVE)// já existe um id salvo?
+        let id = localStorage.getItem(CHAVE)
         if(!id){
-            id = crypto.ramdomUUID() // não: cria um código aleatório
-            localStorage.setItem(CHAVE, id) // e guarda para as próximas vezes
+            id = gerarUUID()
+            localStorage.setItem(CHAVE, id)
         }
         return id
     } catch {
-        return crypto.ramdomUUID() // se o navegador bloquear o storage, usa um id temporário
+        return gerarUUID()
     }
 }
