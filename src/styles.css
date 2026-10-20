@@ -850,3 +850,62 @@ html, body, #root {
 .ranking-numeros { display: flex; flex-direction: column; align-items: center; line-height: 1.1; }
 .ranking-numeros strong { font-size: 1.1rem; font-weight: 800; color: var(--laranjaSólido); }
 .ranking-numeros small { font-size: 10px; color: var(--textoSecundario); }
+
+/* ===== Tela de eventos ===== */
+.secao-titulo { margin: 20px 0 10px; font-size: 1rem; font-weight: 700; color: var(--titulos); }
+
+/* Card "acontecendo agora": o mesmo degradê laranja-vermelho do app */
+.evento-agora {
+    display: flex; flex-direction: column; gap: 4px;
+    padding: 18px 20px; margin-bottom: 12px;
+    border-radius: 1.5rem;
+    background: var(--gradiente);
+    color: #fff;
+}
+.agora-selo { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; }
+
+/* Bolinha que "pulsa" para dar sensação de ao vivo */
+.agora-ponto { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: pulsar 1.6s ease-in-out infinite; }
+@keyframes pulsar { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.5); } }
+@media (prefers-reduced-motion: reduce) { .agora-ponto { animation: none; } } /* respeita quem desativou animações */
+
+.agora-titulo { font-size: 1.25rem; font-weight: 800; line-height: 1.25; margin-top: 4px; }
+.agora-horario { font-size: 14px; font-weight: 500; opacity: 0.95; }
+.agora-rodape { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; }
+.agora-local { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; min-width: 0; }
+.agora-btn {
+    flex-shrink: 0; padding: 8px 16px;
+    border: 0; border-radius: 1.25rem;
+    background: #fff; color: var(--laranjaSólido);
+    font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer;
+}
+.agora-vazio {
+    padding: 16px 20px;
+    border: 1px dashed var(--borda); border-radius: 1.5rem;
+    font-size: 14px; color: var(--textoSecundario);
+}
+
+.agenda-titulo { font-size: 1.875rem; line-height: 1.2; margin-top: 28px; } 
+
+/* Lista de eventos do dia */
+.eventos-lista { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-direction: column; gap: 12px; transition: opacity 0.2s; }
+.eventos-lista.carregando { opacity: 0.5; }
+
+.evento-item {
+    display: flex; gap: 16px;
+    padding: 14px 18px;
+    border: 1px solid var(--borda); border-radius: 1.5rem;
+    background: var(--fundo);
+    box-shadow: 0 8px 20px -12px rgba(17, 12, 9, 0.25);
+}
+.evento-horario { display: flex; flex-direction: column; min-width: 4.5rem; }
+.evento-horario strong { font-size: 1.25rem; font-weight: 800; color: var(--laranjaSólido); line-height: 1.2; }
+.evento-horario span { font-size: 11px; color: var(--textoSecundario); }
+.evento-info { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-width: 0; }
+.evento-titulo { font-size: 1rem; font-weight: 700; color: var(--titulos); line-height: 1.3; }
+.evento-local {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 0; border: 0; background: none;
+    font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--textoSecundario); cursor: pointer;
+}
+.evento-local:focus-visible, .agora-btn:focus-visible { outline: 2px solid var(--laranjaSólido); outline-offset: 2px; }

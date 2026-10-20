@@ -1,7 +1,8 @@
 const FUSO = 'America/Sao_Paulo'
-// '2026-10-21T11:30:00.000Z' vira '08:30'
+
+// '2026-10-21T12:00:00.000Z' vira '09:00'
 export function formatarHora(iso){
-    return new Date(iso).toISOString('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: FUSO })
+    return new Date(iso).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: FUSO })
 }
 
 export function formatarDataLonga(dataISO){
