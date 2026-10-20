@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query"; // controla o "enviando / deu certo / deu erro"
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { validarQrCode } from "../../services/sessionServices";
-
+import { limparCodigo } from "../../utils/codigo";
 
 // onValidado(codigo) = avisa a página que o crachá foi aceito; onDigitar = trocar para a tela de digitar; onCancelar = sair
 export function EtapaScanner({ onValidado, onDigitar, onCancelar }){
@@ -14,10 +14,10 @@ export function EtapaScanner({ onValidado, onDigitar, onCancelar }){
   });
 
   const aoEscanear = (codigos) => {
-    const texto = codigos[0]?.rawValue?.trim();                // texto do primeiro QR lido
-    if(!texto) return;
-    validacao.mutate(texto);                                   // valida no back
-  };
+  const texto = limparCodigo(codigos[0]?.rawValue);  // lê o QR e já limpa
+  if(!texto) return;                                  // se ficou vazio, ignora
+  validacao.mutate(texto);                            // valida no back com o texto limpo
+};
 
   const aoErrarCamera = (erro) => {
     setErroCamera(erro?.name === 'NotAllowedError'

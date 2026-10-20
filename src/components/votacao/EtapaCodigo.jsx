@@ -13,7 +13,7 @@ export function EtapaCodigo({ onValidado, onVoltar }){
 
     const enviar = (e) => {
          e.preventDefault() // impede a página de recarregar ao dar Enter
-         const texto = codigo.trim() // tira espaços das pontas
+         const texto = limparCodigo(codigo) // tira espaços das pontas
          if(!texto){ // vazio: não envia
             return
          }
