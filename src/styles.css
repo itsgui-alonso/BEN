@@ -771,3 +771,82 @@ html, body, #root {
 .opcao-texto { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .opcao-texto strong { font-size: 15px; font-weight: 700; color: #504d4a; }
 .opcao-texto small { font-size: 11px; font-weight: 700; color: #aaa39e; line-height: 1.4; }
+
+.pill-icone { display: inline-flex; align-items: center; gap: 6px; }
+
+.resultados-intro {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--textoSecundario);
+    margin: 28px 0 20px;
+}
+
+.total-feira {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 20px;
+    border-radius: 1.5rem;
+    background: linear-gradient(135deg, #FF8300, #EE343B);
+    color: #fff;
+}
+.total-rotulo {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+}
+.total-numero { font-size: 2.75rem; font-weight: 800; line-height: 1.1; }
+.total-legenda { font-size: 14px; font-weight: 500; }
+
+.dias-grade {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+}
+.dia-card {
+    display: flex; flex-direction: column;
+    padding: 14px 16px;
+    border: 1px solid var(--borda);
+    border-radius: 1.5rem;
+    background: var(--fundo);
+    box-shadow: 0 8px 20px -12px rgba(17, 12, 9, 0.25);
+}
+.dia-rotulo {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 600; color: var(--textoSecundario);
+}
+.dia-numero { font-size: 2rem; font-weight: 800; line-height: 1.15; color: var(--titulos); }
+.dia-legenda { font-size: 11px; color: var(--textoSecundario); }
+
+.ranking-titulo {
+    margin: 32px 0 14px;
+    font-size: 1.75rem; font-weight: 800; color: var(--titulos);
+}
+.ranking-lista { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+
+.ranking-item {
+    width: 100%;
+    display: flex; align-items: center; gap: 16px;
+    padding: 12px 18px;
+    border: 1px solid var(--borda);
+    border-radius: 2rem;
+    background: var(--fundo);
+    box-shadow: 0 8px 20px -12px rgba(17, 12, 9, 0.25);
+    font-family: 'Poppins', sans-serif;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+.ranking-item:active { transform: scale(0.98); }
+.ranking-item:focus-visible { outline: 2px solid var(--laranjaSólido); outline-offset: 2px; }
+
+.ranking-posicao { font-size: 1.75rem; font-weight: 800; color: var(--laranjaSólido); min-width: 2.5rem; }
+.ranking-nome {
+    flex: 1; min-width: 0;
+    font-size: 1.1rem; font-weight: 700; color: var(--titulos);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ranking-curtidas { display: flex; align-items: center; gap: 6px; color: #EE343B; }
+.ranking-numeros { display: flex; flex-direction: column; align-items: center; line-height: 1.1; }
+.ranking-numeros strong { font-size: 1.1rem; font-weight: 800; color: var(--laranjaSólido); }
+.ranking-numeros small { font-size: 10px; color: var(--textoSecundario); }
