@@ -15,7 +15,8 @@ export function EtapaScanner({ onValidado, onDigitar, onCancelar }){
 
   const aoEscanear = (codigos) => {
   const texto = limparCodigo(codigos[0]?.rawValue);  // lê o QR e já limpa
-  if(!texto) return;                                  // se ficou vazio, ignora
+  if(!texto) return;
+  console.log('QR lido:', JSON.stringify(texto), [...texto].map(c => c.charCodeAt(0))); // se aparecer algo fora de 81,82,45,48,48,48,51 ("QR-0003"), achamos o culpado                                  // se ficou vazio, ignora
   validacao.mutate(texto);                            // valida no back com o texto limpo
 };
 
