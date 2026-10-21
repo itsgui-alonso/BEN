@@ -37,6 +37,13 @@ export function ProjetosPage() {
         return () => observador.disconnect()
     }, [hasNextPage, isFetchingNextPage, fetchNextPage])
 
+    function verNoMapa(proj) {
+    const params = new URLSearchParams()
+    if (proj.stand_projeto) params.set('stand', proj.stand_projeto)
+    params.set('projeto', proj.id)
+    navigate(`/mapa?${params}`)
+}
+
     return (
         <main className="projetos-page">
             <Header nome="Mariana Costa" tipo="Visitante" evento="Bentotec 2026" />
@@ -57,7 +64,7 @@ export function ProjetosPage() {
                 <ProjetoCard
                     key={p.id}
                     projeto={p}
-                    onVerMapa={(proj) => console.log('mapa', proj.stand_projeto)}   // TODO: navegar para o mapa
+                    onVerMapa={verNoMapa}   
                     onVerMais={(proj) => navigate(`/projetos/${proj.id}`)}          // TODO: navegar para o detalhe
                 />
             ))}

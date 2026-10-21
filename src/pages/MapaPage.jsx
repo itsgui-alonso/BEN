@@ -1,8 +1,8 @@
+import { useSearchParams } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "../style.css"
-
 const API_URL =
   "https://vota-bentotec.onrender.com/bentovote/v1/projetos";
 
@@ -52,6 +52,25 @@ function normalizarStand(stand) {
     .trim()
     .toLowerCase()
     .replace(/\s+/g, " ");
+}
+function descobrirAreas(standNormalizado) {
+  const candidatas = [];
+
+  for (const [id, stands] of Object.entries(GRUPOS)) {
+    if (stands.map(normalizarStand).includes(standNormalizado)) {
+      candidatas.push({ tipo: "grupo", id });
+    }
+  }
+  for (const [id, stands] of Object.entries(AREAS_ESPECIAIS)) {
+    if (stands.map(normalizarStand).includes(standNormalizado)) {
+      candidatas.push({ tipo: "especial", id });
+    }
+  }
+  if (/^sala \d+$/.test(standNormalizado)) {
+    candidatas.push({ tipo: "sala", id: standNormalizado });
+  }
+
+  return candidatas;
 }
 
 function obterImagem(url) {
@@ -194,6 +213,11 @@ function renderizarDetalhesProjeto(projeto) {
 
 export default function MapaPage() {
   const containerRef = useRef(null);
+  const [searchParams] = useSearchParams();
+  const alvoInicial = useRef({
+    stand: searchParams.get("stand"),
+    projetoId: searchParams.get("projeto"),
+  });
 
   useEffect(() => {
     const container = containerRef.current;
@@ -371,18 +395,27 @@ export default function MapaPage() {
       }
     }
 
-    async function abrirPopupGrupo(idGrupo, latlng) {
-      const popup = criarPopup(idGrupo, "grupo", latlng);
-      const estandes = GRUPOS[idGrupo].map(normalizarStand);
+async function abrirPopupGrupo(idGrupo, latlng) {
+  const popup = criarPopup(idGrupo, "grupo", latlng);
+  const estandes = GRUPOS[idGrupo].map(normalizarStand);
+  await carregarProjetosDoPopup(popup, estandes);
+  return popup;
+}
 
-      await carregarProjetosDoPopup(popup, estandes);
-    }
+async function abrirPopupSala(idSala, latlng) {
+  const popup = criarPopup(idSala, "sala", latlng);
+  await carregarProjetosDoPopup(popup, [normalizarStand(idSala)]);
+  return popup;
+}
 
-    async function abrirPopupSala(idSala, latlng) {
-      const popup = criarPopup(idSala, "sala", latlng);
-      await carregarProjetosDoPopup(popup, [normalizarStand(idSala)]);
-    }
-
+async function abrirPopupEspecial(idArea, latlng) {
+  const popup = criarPopup(idArea, "especial", latlng);
+  await carregarProjetosDoPopup(
+    popup,
+    AREAS_ESPECIAIS[idArea].map(normalizarStand)
+  );
+  return popup;
+}
     async function carregarMapa() {
       try {
         const resposta = await fetch("/mapa.svg");
@@ -499,13 +532,52 @@ Object.entries(AREAS_ESPECIAIS).forEach(([idArea, stands]) => {
               abrirPopupSala(elemento.id, latlng);
             });
           });
+async function focarNoStand() {
+  const { stand, projetoId } = alvoInicial.current;
+  if (!stand) return;
 
-        mapa.fitBounds(limites);
+  // pega a primeira candidata que de fato existe no SVG
+  const area = descobrirAreas(normalizarStand(stand))
+    .find((a) => encontrarElemento(a.id));
 
-        // Corrige as dimensões após o layout da página.
-        requestAnimationFrame(() => {
-          if (!desmontado) mapa.invalidateSize();
-        });
+  if (!area) {
+    console.warn(`Nenhuma área no SVG para o stand "${stand}"`);
+    return;
+  }
+
+  // centro do elemento na tela -> coordenada do mapa
+  const rect = encontrarElemento(area.id).getBoundingClientRect();
+  const base = container.getBoundingClientRect();
+  const centro = mapa.containerPointToLatLng(
+    L.point(
+      rect.left + rect.width / 2 - base.left,
+      rect.top + rect.height / 2 - base.top
+    )
+  );
+
+  mapa.setView(
+    centro,
+    Math.min(mapa.getZoom() + 1.5, mapa.getMaxZoom()),
+    { animate: false }
+  );
+
+  let popup;
+  if (area.tipo === "grupo") popup = await abrirPopupGrupo(area.id, centro);
+  else if (area.tipo === "sala") popup = await abrirPopupSala(area.id, centro);
+  else popup = await abrirPopupEspecial(area.id, centro);
+
+  // se veio um projeto específico, já abre os detalhes dele
+  if (desmontado || !projetoId || !popup._projetos) return;
+  const projeto = popup._projetos.find((p) => p.id === projetoId);
+  if (projeto) popup.setContent(renderizarDetalhesProjeto(projeto));
+}
+mapa.fitBounds(limites);
+
+requestAnimationFrame(() => {
+  if (desmontado) return;
+  mapa.invalidateSize({ animate: false });
+  focarNoStand();
+});
       } catch (erro) {
         console.error("Erro ao carregar o mapa:", erro);
 
@@ -519,7 +591,6 @@ Object.entries(AREAS_ESPECIAIS).forEach(([idArea, stands]) => {
         }
       }
     }
-
     carregarMapa();
 
     return () => {
