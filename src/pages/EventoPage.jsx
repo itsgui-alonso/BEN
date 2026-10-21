@@ -29,7 +29,7 @@ export function EventosPage() {
             {data && (
                 <>
                     {/* TOPO: o que está acontecendo neste momento */}
-                    <h2 className="secao-titulo">Acontecendo agora</h2>
+                    <h1 className="secao-titulo" style={{ marginTop: 20 }}>Acontecendo agora</h1>
                     {agora.length === 0
                         ? <p className="agora-vazio">Nenhum evento acontecendo neste momento.</p>
                         : agora.map((evento) => <EventoAgora key={evento.id} evento={evento} />)}
