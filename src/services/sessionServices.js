@@ -4,25 +4,20 @@ const CHAVE = 'bentovote-sessao'
 
 export async function validarQrCode(qrCode) {
     const sessao = await apiPost('/session/validacao', { qrCode }) // manda o QR; volta { token, expira_em }
-    sessionStorage.setItem(CHAVE, JSON.stringify(sessao)) // guarda a sessão (some ao fechar a aba)
+    sessionStorage.setItem(CHAVE, JSON.stringify({ ...sessao, codigo: qrCode })) // guarda a sessão + o código do crachá
     return sessao // devolve para a tela
 }
+
 export function lerSessao(){
     const texto = sessionStorage.getItem(CHAVE)
     if(!texto) return null
 
-    const sessao = JSON.parse(texto) // texto para obejto
+    const sessao = JSON.parse(texto) // texto para objeto
 
     if(new Date(sessao.expira_em) < new Date()){ // já passou 10 minutos
-        sessionStorage.removeItem(CHAVE) // limpa sessao vencida
+        sessionStorage.removeItem(CHAVE) // limpa sessão vencida
         return null
     }
 
-    return sessao // sessao ainda valida
-}
-
-export async function validarQrCode(qrCode) {
-    const sessao = await apiPost('/session/validacao', { qrCode })
-    sessionStorage.setItem(CHAVE, JSON.stringify({ ...sessao, codigo: qrCode })) // guarda também o código
-    return sessao
+    return sessao // sessão ainda válida
 }
