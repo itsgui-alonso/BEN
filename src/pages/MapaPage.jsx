@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import "./style.css";
+import "../style.css"
 
 const API_URL =
   "https://vota-bentotec.onrender.com/bentovote/v1/projetos";
@@ -206,6 +206,7 @@ export default function MapaPage() {
       zoomSnap: 0.25,
       zoomDelta: 0.25,
       attributionControl: false,
+      maxBoundsViscosity: 1.0,
     });
 
     let desmontado = false;
@@ -426,8 +427,12 @@ export default function MapaPage() {
         if (desmontado) return;
 
         const [, , largura, altura] = dimensoes;
-        const limites = [[0, 0], [altura, largura]];
+const limites = L.latLngBounds(
+  [0, 0],
+  [3444, 5839]
+);
 
+mapa.setMaxBounds(limites);
         svg.style.pointerEvents = "auto";
 
         const camadaSVG = L.svgOverlay(svg, limites, {
@@ -523,5 +528,11 @@ Object.entries(AREAS_ESPECIAIS).forEach(([idArea, stands]) => {
     };
   }, []);
 
-  return <div id="mapa" className="mapa-pagina" ref={containerRef} />;
+  return (
+    <div className="mapa-pagina">
+      <div className="mapa-container">
+        <div id="mapa" ref={containerRef} />
+      </div>
+    </div>
+  );
 }
