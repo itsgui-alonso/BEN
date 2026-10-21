@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { Header } from "../components/Header";
 import { Etapas } from "../components/votacao/Etapas";
 import { EtapaEscolha } from "../components/votacao/EtapaEscolha";
 import { EtapaScanner } from "../components/votacao/EtapaScanner";
@@ -33,7 +32,6 @@ export function VotarPage(){
 
     return (
         <>
-            <Header nome="Mariana Costa" tipo="visitante" evento="BentoTec 2026"/>
 
             <div className="votacao-topo">
                 <button className="icone-btn" onClick={sair} aria-label="Voltar"><ArrowLeft size={18}/></button>

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Header } from "../components/Header";
 import { EventoAgora } from "../components/EventoAgora";
 import { EventoItem } from "../components/EventoItem";
 import { useEventos } from "../hooks/useEventos";
@@ -23,7 +22,6 @@ export function EventosPage() {
 
     return (
         <main className="projetos-page">
-            <Header nome="Mariana Costa" tipo="Visitante" evento="BentoTec 2026" />
 
             {isLoading && <p className="vazio">Carregando...</p>}
             {isError && <button className="vazio" onClick={() => refetch()}>Não foi possível carregar. Toque para tentar de novo.</button>}

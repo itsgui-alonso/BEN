@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { Activity, Vote, Calendar, Heart } from 'lucide-react';
-import { Header } from '../components/Header';
 import { useResumo } from '../hooks/useResumo';
 
 const formatar = (n) => Number(n ?? 0).toLocaleString('pt-BR')
@@ -14,7 +13,6 @@ export function VotosPage() {
 
     return (
         <main className='projetos-page resultados-page'>
-            <Header nome='Mariana Costa' tipo='Visitante' evento='BentoTec 2026' />
 
             <span className='pill pill-icone'><Activity size={14} /> Apuração parcial</span>
             <h1 className='titulo'>Resultados</h1>

@@ -22,17 +22,16 @@ const GRUPOS = {
   "grupo 10": ["stand 21", "stand 22", "stand 23", "stand 24"],
   "grupo 11": ["stand 33", "stand 34", "stand 35", "stand 36"],
   "grupo 12": ["stand 45", "stand 46", "stand 47", "stand 48"],
-  "grupo 13": ["stand 57", "stand 58", "stand 59", "stand 60"],
+  "grupo 13": ["stand 53", "stand 54", "stand 55", "stand 56"],
   "grupo 14": ["stand 5", "stand 6", "stand 7", "stand 8"],
   "grupo 15": ["stand 17", "stand 18", "stand 19", "stand 20"],
   "grupo 16": ["stand 29", "stand 30", "stand 31", "stand 32"],
   "grupo 17": ["stand 41", "stand 42", "stand 43", "stand 44"],
-  "grupo 18": ["stand 53", "stand 54", "stand 55", "stand 56"],
+  "grupo 18": ["stand 49", "stand 50", "stand 51", "stand 52"],
   "grupo 19": ["stand 1", "stand 2", "stand 3", "stand 4"],
   "grupo 20": ["stand 13", "stand 14", "stand 15", "stand 16"],
   "grupo 21": ["stand 25", "stand 26", "stand 27", "stand 28"],
   "grupo 22": ["stand 37", "stand 38", "stand 39", "stand 40"],
-  "grupo 23": ["stand 49", "stand 50", "stand 51", "stand 52"],
 };
 const AREAS_ESPECIAIS = {
   GDM: ["GDM"],
@@ -51,7 +50,8 @@ function normalizarStand(stand) {
   return String(stand ?? "")
     .trim()
     .toLowerCase()
-    .replace(/\s+/g, " ");
+    .replace(/\s+/g, " ")
+    .replace(/\b0+(?=\d)/g, "");
 }
 function descobrirAreas(standNormalizado) {
   const candidatas = [];

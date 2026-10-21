@@ -11,7 +11,6 @@ import {
   Vote,
   ImageOff,
 } from "lucide-react";
-import { Header } from "../components/Header";
 import { SecaoCard } from "../components/SecaoCard";
 import { useProjeto } from "../hooks/useProjetos";
 import { useCurtidas } from "../hooks/useCurtidas";
@@ -48,11 +47,6 @@ export function ProjetoDetalhePage() {
 
   return (
     <main className="detalhe-page">
-      <Header
-        nome="Mariana Costa"
-        tipo="Visitante"
-        evento="BentoTec 2026"
-      ></Header>
 
       {isLoading && <p className="vazio">Carregando...</p>}
       {isError && (

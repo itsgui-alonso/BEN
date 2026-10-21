@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
-import { Header } from "../components/Header";
 import { SearchBar } from "../components/SearchBar";
 import { CategoriaChips } from "../components/CategoriaChips";
 import { ProjetoCard } from "../components/ProjetoCard";
@@ -46,8 +45,6 @@ export function ProjetosPage() {
 
     return (
         <main className="projetos-page">
-            <Header nome="Mariana Costa" tipo="Visitante" evento="Bentotec 2026" />
-            <span className="pill">Feira 2026 · em curso</span>
             <h1 className="titulo">Projetos</h1>
             <p className="subtitulo">Explore as ideias criadas pelos alunos. Filtre por categoria e vote no seu favorito.</p>
 
