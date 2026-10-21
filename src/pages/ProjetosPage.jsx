@@ -6,6 +6,7 @@ import { ProjetoCard } from "../components/ProjetoCard";
 import { useDebounce } from "../hooks/useDebounce";
 import { useProjetos } from "../hooks/useProjetos";
 import { useCategorias } from "../hooks/useCategorias";
+import { Header } from "../components/Header";   // no topo
 
 export function ProjetosPage() {
     const navigate = useNavigate()
@@ -45,6 +46,7 @@ export function ProjetosPage() {
 
     return (
         <main className="projetos-page">
+            <Header nome="Visitante" tipo="Visitante" evento="BentoTec 2026" />
             <h1 className="titulo">Projetos</h1>
             <p className="subtitulo">Explore as ideias criadas pelos alunos. Filtre por categoria e vote no seu favorito.</p>
 

@@ -3,6 +3,7 @@ import { EventoAgora } from "../components/EventoAgora";
 import { EventoItem } from "../components/EventoItem";
 import { useEventos } from "../hooks/useEventos";
 import { formatarDataLonga } from "../utils/datas";
+import { Header } from "../components/Header";
 
 export function EventosPage() {
     // null = "deixa o back escolher" (hoje, ou o primeiro dia da feira).
@@ -29,6 +30,7 @@ export function EventosPage() {
             {data && (
                 <>
                     {/* TOPO: o que está acontecendo neste momento */}
+                    <Header nome="Visitante" tipo="Visitante" evento="BentoTec 2026" />
                     <h1 className="secao-titulo" style={{ paddingTop: 20 }}>Acontecendo agora</h1>
                     {agora.length === 0
                         ? <p className="agora-vazio">Nenhum evento acontecendo neste momento.</p>

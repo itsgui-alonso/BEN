@@ -5,7 +5,7 @@ import { validarQrCode } from "../../services/sessionServices";
 import { limparCodigo } from "../../utils/codigo";
 
 // onValidado(codigo) = avisa a página que o crachá foi aceito; onDigitar = trocar para a tela de digitar; onCancelar = sair
-export function EtapaScanner({ onValidado, onDigitar, onCancelar }){
+export function EtapaScanner({ onValidado, onCancelar }){
   const [erroCamera, setErroCamera] = useState('');            // mensagem se a câmera falhar
 
   const validacao = useMutation({
