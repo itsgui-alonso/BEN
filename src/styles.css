@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
 :root {
-    --gradiente: linear-gradient(90deg, #FF8300, #EE343B);
-    --laranjaSólido: #FF7527;
+    --gradiente: linear-gradient(90deg, #842FA2, #4C28A1);
+    --laranjaSólido: #8B33AB;
     --titulos: #110C09;
     --textoSecundario: #6C6158;
     --borda: #E8E8E8;
