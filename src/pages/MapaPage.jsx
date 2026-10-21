@@ -2,22 +2,21 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import "../style.css"
-const API_URL =
-  "https://vota-bentotec.onrender.com/bentovote/v1/projetos";
+import "../style.css";
+const API_URL = "https://vota-bentotec.onrender.com/bentovote/v1/projetos";
 
 const LIMITE_POR_PAGINA = 100;
 const IMAGEM_PADRAO = "/teste.jpg";
 
 const GRUPOS = {
-  "grupo 1": ["stand 69", "stand 70", "stand 71", "stand 72"],
-  "grupo 2": ["stand 85", "stand 86", "stand 87", "stand 88"],
-  "grupo 3": ["stand 65", "stand 66", "stand 67", "stand 68"],
-  "grupo 4": ["stand 81", "stand 82", "stand 83", "stand 84"],
-  "grupo 5": ["stand 61", "stand 62", "stand 63", "stand 64"],
-  "grupo 6": ["stand 77", "stand 78", "stand 79", "stand 80"],
-  "grupo 7": ["stand 57", "stand 58", "stand 59", "stand 60"],
-  "grupo 8": ["stand 73", "stand 74", "stand 75", "stand 76"],
+  "grupo 1": ["stand 73", "stand 74", "stand 75", "stand 76"],
+  "grupo 2": ["stand 57", "stand 58", "stand 59", "stand 60"],
+  "grupo 3": ["stand 77", "stand 78", "stand 79", "stand 80"],
+  "grupo 4": ["stand 61", "stand 62", "stand 63", "stand 64"],
+  "grupo 5": ["stand 81", "stand 82", "stand 83", "stand 84"],
+  "grupo 6": ["stand 65", "stand 66", "stand 67", "stand 68"],
+  "grupo 7": ["stand 85", "stand 86", "stand 87", "stand 88"],
+  "grupo 8": ["stand 69", "stand 70", "stand 71", "stand 72"],
   "grupo 9": ["stand 9", "stand 10", "stand 11", "stand 12"],
   "grupo 10": ["stand 21", "stand 22", "stand 23", "stand 24"],
   "grupo 11": ["stand 33", "stand 34", "stand 35", "stand 36"],
@@ -37,13 +36,17 @@ const AREAS_ESPECIAIS = {
   GDM: ["GDM"],
 };
 function escaparHTML(texto) {
-  return String(texto ?? "").replace(/[&<>"']/g, (caractere) => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;",
-  })[caractere]);
+  return String(texto ?? "").replace(
+    /[&<>"']/g,
+    (caractere) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      })[caractere],
+  );
 }
 
 function normalizarStand(stand) {
@@ -102,10 +105,7 @@ function extrairProjetos(resposta) {
 
 function normalizarProjeto(projeto, indice) {
   const participantesBrutos =
-    projeto.participantes ??
-    projeto.integrantes ??
-    projeto.alunos ??
-    [];
+    projeto.participantes ?? projeto.integrantes ?? projeto.alunos ?? [];
 
   let participantes = [];
 
@@ -114,12 +114,7 @@ function normalizarProjeto(projeto, indice) {
       .map((item) => {
         if (typeof item === "string") return item;
 
-        return (
-          item?.nome ??
-          item?.nome_integrante ??
-          item?.nome_aluno ??
-          ""
-        );
+        return item?.nome ?? item?.nome_integrante ?? item?.nome_aluno ?? "";
       })
       .filter(Boolean);
   } else if (typeof participantesBrutos === "string") {
@@ -132,9 +127,9 @@ function normalizarProjeto(projeto, indice) {
   return {
     id: String(
       projeto.id ??
-      projeto.projeto_id ??
-      projeto.numero_projeto ??
-      `projeto-${indice}`
+        projeto.projeto_id ??
+        projeto.numero_projeto ??
+        `projeto-${indice}`,
     ),
     nome: projeto.nome_projeto ?? "Projeto sem nome",
     descricao: projeto.descricao ?? "Descrição não disponível.",
@@ -145,7 +140,9 @@ function normalizarProjeto(projeto, indice) {
 }
 
 function renderizarListaProjetos(projetos) {
-  const cards = projetos.map((projeto) => `
+  const cards = projetos
+    .map(
+      (projeto) => `
     <button
       type="button"
       class="projeto-card"
@@ -161,7 +158,9 @@ function renderizarListaProjetos(projetos) {
       </span>
       <span class="projeto-card-seta" aria-hidden="true">›</span>
     </button>
-  `).join("");
+  `,
+    )
+    .join("");
 
   return `
     <div class="projetos-popup">
@@ -176,9 +175,13 @@ function renderizarListaProjetos(projetos) {
 }
 
 function renderizarDetalhesProjeto(projeto) {
-  const participantes = projeto.participantes.map((nome) => `
+  const participantes = projeto.participantes
+    .map(
+      (nome) => `
     <li>${escaparHTML(nome)}</li>
-  `).join("");
+  `,
+    )
+    .join("");
 
   return `
     <div class="projetos-popup">
@@ -255,9 +258,7 @@ export default function MapaPage() {
         const resultado = await resposta.json();
 
         if (resultado?.sucesso === false) {
-          throw new Error(
-            resultado.mensagem ?? "A API informou uma falha."
-          );
+          throw new Error(resultado.mensagem ?? "A API informou uma falha.");
         }
 
         const dadosPagina = extrairProjetos(resultado);
@@ -314,7 +315,7 @@ export default function MapaPage() {
           evento.stopPropagation();
 
           const projeto = popup._projetos?.find(
-            (item) => item.id === botaoProjeto.dataset.projetoId
+            (item) => item.id === botaoProjeto.dataset.projetoId,
           );
 
           if (projeto) {
@@ -324,9 +325,7 @@ export default function MapaPage() {
           evento.preventDefault();
           evento.stopPropagation();
 
-          popup.setContent(
-            renderizarListaProjetos(popup._projetos ?? [])
-          );
+          popup.setContent(renderizarListaProjetos(popup._projetos ?? []));
         } else if (botaoTentar) {
           evento.preventDefault();
           evento.stopPropagation();
@@ -349,11 +348,13 @@ export default function MapaPage() {
         className: "popup-projetos",
       })
         .setLatLng(latlng)
-        .setContent(`
+        .setContent(
+          `
           <div class="projetos-popup">
             <p>Carregando projetos...</p>
           </div>
-        `)
+        `,
+        )
         .openOn(mapa);
 
       popup._tipo = tipo;
@@ -372,7 +373,7 @@ export default function MapaPage() {
         if (desmontado || !mapa.hasLayer(popup)) return;
 
         const projetos = todosProjetos.filter((projeto) =>
-          filtro.includes(projeto.stand_projeto)
+          filtro.includes(projeto.stand_projeto),
         );
 
         popup._projetos = projetos;
@@ -395,27 +396,27 @@ export default function MapaPage() {
       }
     }
 
-async function abrirPopupGrupo(idGrupo, latlng) {
-  const popup = criarPopup(idGrupo, "grupo", latlng);
-  const estandes = GRUPOS[idGrupo].map(normalizarStand);
-  await carregarProjetosDoPopup(popup, estandes);
-  return popup;
-}
+    async function abrirPopupGrupo(idGrupo, latlng) {
+      const popup = criarPopup(idGrupo, "grupo", latlng);
+      const estandes = GRUPOS[idGrupo].map(normalizarStand);
+      await carregarProjetosDoPopup(popup, estandes);
+      return popup;
+    }
 
-async function abrirPopupSala(idSala, latlng) {
-  const popup = criarPopup(idSala, "sala", latlng);
-  await carregarProjetosDoPopup(popup, [normalizarStand(idSala)]);
-  return popup;
-}
+    async function abrirPopupSala(idSala, latlng) {
+      const popup = criarPopup(idSala, "sala", latlng);
+      await carregarProjetosDoPopup(popup, [normalizarStand(idSala)]);
+      return popup;
+    }
 
-async function abrirPopupEspecial(idArea, latlng) {
-  const popup = criarPopup(idArea, "especial", latlng);
-  await carregarProjetosDoPopup(
-    popup,
-    AREAS_ESPECIAIS[idArea].map(normalizarStand)
-  );
-  return popup;
-}
+    async function abrirPopupEspecial(idArea, latlng) {
+      const popup = criarPopup(idArea, "especial", latlng);
+      await carregarProjetosDoPopup(
+        popup,
+        AREAS_ESPECIAIS[idArea].map(normalizarStand),
+      );
+      return popup;
+    }
     async function carregarMapa() {
       try {
         const resposta = await fetch("/mapa.svg");
@@ -428,7 +429,7 @@ async function abrirPopupEspecial(idArea, latlng) {
 
         const documento = new DOMParser().parseFromString(
           texto,
-          "image/svg+xml"
+          "image/svg+xml",
         );
 
         const svg = documento.documentElement;
@@ -446,7 +447,10 @@ async function abrirPopupEspecial(idArea, latlng) {
           throw new Error('O SVG precisa ter o atributo "viewBox".');
         }
 
-        const dimensoes = viewBox.trim().split(/[\s,]+/).map(Number);
+        const dimensoes = viewBox
+          .trim()
+          .split(/[\s,]+/)
+          .map(Number);
 
         if (
           dimensoes.length !== 4 ||
@@ -460,12 +464,9 @@ async function abrirPopupEspecial(idArea, latlng) {
         if (desmontado) return;
 
         const [, , largura, altura] = dimensoes;
-const limites = L.latLngBounds(
-  [0, 0],
-  [3444, 5839]
-);
+        const limites = L.latLngBounds([0, 0], [3444, 5839]);
 
-mapa.setMaxBounds(limites);
+        mapa.setMaxBounds(limites);
         svg.style.pointerEvents = "auto";
 
         const camadaSVG = L.svgOverlay(svg, limites, {
@@ -476,8 +477,9 @@ mapa.setMaxBounds(limites);
         camadaSVG.addTo(mapa);
 
         function encontrarElemento(id) {
-          return Array.from(svg.querySelectorAll("[id]"))
-            .find((elemento) => elemento.id === id);
+          return Array.from(svg.querySelectorAll("[id]")).find(
+            (elemento) => elemento.id === id,
+          );
         }
 
         function configurarArea(elemento, callback) {
@@ -507,23 +509,20 @@ mapa.setMaxBounds(limites);
             abrirPopupGrupo(idGrupo, latlng);
           });
         });
-Object.entries(AREAS_ESPECIAIS).forEach(([idArea, stands]) => {
-  const elemento = encontrarElemento(idArea);
+        Object.entries(AREAS_ESPECIAIS).forEach(([idArea, stands]) => {
+          const elemento = encontrarElemento(idArea);
 
-  if (!elemento) {
-    console.warn(`Área especial não encontrada no SVG: "${idArea}"`);
-    return;
-  }
+          if (!elemento) {
+            console.warn(`Área especial não encontrada no SVG: "${idArea}"`);
+            return;
+          }
 
-  configurarArea(elemento, (latlng) => {
-    const popup = criarPopup(idArea, "especial", latlng);
+          configurarArea(elemento, (latlng) => {
+            const popup = criarPopup(idArea, "especial", latlng);
 
-    carregarProjetosDoPopup(
-      popup,
-      stands.map(normalizarStand)
-    );
-  });
-});
+            carregarProjetosDoPopup(popup, stands.map(normalizarStand));
+          });
+        });
         // Registra somente as salas que realmente existem no SVG.
         Array.from(svg.querySelectorAll("[id]"))
           .filter((elemento) => /^sala \d+$/.test(elemento.id))
@@ -532,52 +531,55 @@ Object.entries(AREAS_ESPECIAIS).forEach(([idArea, stands]) => {
               abrirPopupSala(elemento.id, latlng);
             });
           });
-async function focarNoStand() {
-  const { stand, projetoId } = alvoInicial.current;
-  if (!stand) return;
+        async function focarNoStand() {
+          const { stand, projetoId } = alvoInicial.current;
+          if (!stand) return;
 
-  // pega a primeira candidata que de fato existe no SVG
-  const area = descobrirAreas(normalizarStand(stand))
-    .find((a) => encontrarElemento(a.id));
+          // pega a primeira candidata que de fato existe no SVG
+          const area = descobrirAreas(normalizarStand(stand)).find((a) =>
+            encontrarElemento(a.id),
+          );
 
-  if (!area) {
-    console.warn(`Nenhuma área no SVG para o stand "${stand}"`);
-    return;
-  }
+          if (!area) {
+            console.warn(`Nenhuma área no SVG para o stand "${stand}"`);
+            return;
+          }
 
-  // centro do elemento na tela -> coordenada do mapa
-  const rect = encontrarElemento(area.id).getBoundingClientRect();
-  const base = container.getBoundingClientRect();
-  const centro = mapa.containerPointToLatLng(
-    L.point(
-      rect.left + rect.width / 2 - base.left,
-      rect.top + rect.height / 2 - base.top
-    )
-  );
+          // centro do elemento na tela -> coordenada do mapa
+          const rect = encontrarElemento(area.id).getBoundingClientRect();
+          const base = container.getBoundingClientRect();
+          const centro = mapa.containerPointToLatLng(
+            L.point(
+              rect.left + rect.width / 2 - base.left,
+              rect.top + rect.height / 2 - base.top,
+            ),
+          );
 
-  mapa.setView(
-    centro,
-    Math.min(mapa.getZoom() + 1.5, mapa.getMaxZoom()),
-    { animate: false }
-  );
+          mapa.setView(
+            centro,
+            Math.min(mapa.getZoom() + 1.5, mapa.getMaxZoom()),
+            { animate: false },
+          );
 
-  let popup;
-  if (area.tipo === "grupo") popup = await abrirPopupGrupo(area.id, centro);
-  else if (area.tipo === "sala") popup = await abrirPopupSala(area.id, centro);
-  else popup = await abrirPopupEspecial(area.id, centro);
+          let popup;
+          if (area.tipo === "grupo")
+            popup = await abrirPopupGrupo(area.id, centro);
+          else if (area.tipo === "sala")
+            popup = await abrirPopupSala(area.id, centro);
+          else popup = await abrirPopupEspecial(area.id, centro);
 
-  // se veio um projeto específico, já abre os detalhes dele
-  if (desmontado || !projetoId || !popup._projetos) return;
-  const projeto = popup._projetos.find((p) => p.id === projetoId);
-  if (projeto) popup.setContent(renderizarDetalhesProjeto(projeto));
-}
-mapa.fitBounds(limites);
+          // se veio um projeto específico, já abre os detalhes dele
+          if (desmontado || !projetoId || !popup._projetos) return;
+          const projeto = popup._projetos.find((p) => p.id === projetoId);
+          if (projeto) popup.setContent(renderizarDetalhesProjeto(projeto));
+        }
+        mapa.fitBounds(limites);
 
-requestAnimationFrame(() => {
-  if (desmontado) return;
-  mapa.invalidateSize({ animate: false });
-  focarNoStand();
-});
+        requestAnimationFrame(() => {
+          if (desmontado) return;
+          mapa.invalidateSize({ animate: false });
+          focarNoStand();
+        });
       } catch (erro) {
         console.error("Erro ao carregar o mapa:", erro);
 
