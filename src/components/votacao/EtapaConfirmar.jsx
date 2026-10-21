@@ -12,7 +12,7 @@ export function EtapaConfirmar({ projeto, onVotado, onNao, onRecomecar }) {
     queryKey: ["votos-restantes", projeto.id, sessao?.token],
     queryFn: () =>
       consultarVotosRestantes({ token: sessao.token, projectId: projeto.id }),
-    enabled: !!sessao, // pergunta se a seção é valida
+    enabled: !!sessao, // só pergunta se a sessão é válida
     retry: false, // não repete sozinho se der erro
   });
 
@@ -21,7 +21,7 @@ export function EtapaConfirmar({ projeto, onVotado, onNao, onRecomecar }) {
     onSuccess: onVotado, // avisa a página: vai para a tela 4
   });
 
-  const dados = restantes.data; // { categoria, limite, restantes, ... }
+  const dados = restantes.data; // { categoria, limite, restantes, ja_votou_projeto, ... }
   const erro = !sessao
     ? "Sua sessão expirou. Escaneie o crachá novamente." // sem sessão
     : restantes.error?.message || votacao.error?.message; // erro da consulta ou do voto
@@ -36,7 +36,8 @@ export function EtapaConfirmar({ projeto, onVotado, onNao, onRecomecar }) {
       </h1>
 
       {dados &&
-        dados.pode_votar && ( // texto dinâmico do Figma
+        dados.pode_votar &&
+        !dados.ja_votou_projeto && ( // NOVO: só mostra se ainda não votou nesse projeto
           <p className="votacao-sub">
             <b>
               Você tem direito a {dados.limite} {rotulo(dados.limite)} por cada
@@ -56,6 +57,13 @@ export function EtapaConfirmar({ projeto, onVotado, onNao, onRecomecar }) {
             Você já usou {dados.usados} de {dados.limite} {rotulo(dados.limite)}{" "}
             na categoria <b>{dados.categoria.nome}</b>. Escolha um projeto de
             outra categoria.
+          </p>
+        )}
+      {dados &&
+        dados.ja_votou_projeto && ( // NOVO: já votou nesse projeto específico
+          <p className="votacao-sub">
+            Você já votou nesse projeto. Escolha outro projeto da categoria{" "}
+            <b>{dados.categoria.nome}</b>.
           </p>
         )}
       {restantes.isLoading && <p className="votacao-sub">Carregando...</p>}
@@ -87,7 +95,11 @@ export function EtapaConfirmar({ projeto, onVotado, onNao, onRecomecar }) {
           <button
             className="btn-primario"
             onClick={() => votacao.mutate()}
-            disabled={!dados?.pode_votar || votacao.isPending}
+            disabled={
+              !dados?.pode_votar ||
+              dados?.ja_votou_projeto || // NOVO: bloqueia o botão se já votou nesse projeto
+              votacao.isPending
+            }
           >
             {" "}
             {/* só habilita se ainda pode votar */}

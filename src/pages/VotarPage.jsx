@@ -9,6 +9,7 @@ import { EtapaIdentificada } from "../components/votacao/EtapaIdentificada";
 import { EtapaConfirmar } from "../components/votacao/EtapaConfirmar";
 import { EtapaRegistrado } from "../components/votacao/EtapaRegistrado";
 import { useProjeto } from "../hooks/useProjetos";
+import { lerSessao } from "../services/sessionServices";
 
 const SEGMENTOS = {  escolha: 1, scanner: 2, codigo: 2, identificada: 3, confirmar: 4, registrado: 5 }
 
@@ -17,8 +18,11 @@ export function VotarPage(){
     const navigate = useNavigate() // navegar pelas telas
     const { data: projeto } = useProjeto(id) // dados do projeto...
 
-    const [etapa, setEtapa] = useState('escolha') // as etapas criadas
-    const [codigo, setCodigo] = useState('') // código do crachá validado
+    const sessaoAtual = lerSessao() // null se não existe ou já passou dos 10 min
+
+    const [etapa, setEtapa] = useState(sessaoAtual ? 'confirmar' : 'escolha') // sessão válida pula o scanner
+    const [codigo, setCodigo] = useState(sessaoAtual?.codigo ?? '')
+    
     const [dataHora, setDataHora] = useState('') // quando o voto foi feito
 
     const validado = (texto) => {setCodigo(texto); setEtapa('identificada')} // qrcode eu código aceito

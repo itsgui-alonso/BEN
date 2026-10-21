@@ -20,3 +20,9 @@ export function lerSessao(){
 
     return sessao // sessao ainda valida
 }
+
+export async function validarQrCode(qrCode) {
+    const sessao = await apiPost('/session/validacao', { qrCode })
+    sessionStorage.setItem(CHAVE, JSON.stringify({ ...sessao, codigo: qrCode })) // guarda também o código
+    return sessao
+}
