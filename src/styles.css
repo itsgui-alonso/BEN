@@ -226,7 +226,13 @@ html, body, #root {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 0;
+    padding: 12px 1.25rem;     /* o espaço lateral passa para dentro do header */
+    margin: 0 -1.25rem;        /* cancela o padding da página, e o header ocupa a largura toda */
+    background: var(--fundo);  /* sem fundo, a sombra não aparece direito */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    position: sticky;          /* fica preso no topo quando a página rola */
+    top: 0;
+    z-index: 10;               /* fica por cima dos cards */
 }
 
 .avatar {
