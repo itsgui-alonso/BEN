@@ -788,7 +788,7 @@ html, body, #root {
     gap: 2px;
     padding: 20px;
     border-radius: 1.5rem;
-    background: linear-gradient(135deg, #FF8300, #EE343B);
+    background: var(--laranjaSólido);
     color: #fff;
 }
 .total-rotulo {
