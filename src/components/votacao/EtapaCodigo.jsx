@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Vote } from "lucide-react";
 import { validarQrCode } from "../../services/sessionServices";
+import { limparCodigo } from "../../utils/codigo"; // <- faltava esta linha
+
 
 export function EtapaCodigo({ onValidado, onVoltar }){
     const [codigo, setCodigo] = useState('') // o que o visitante digitar
