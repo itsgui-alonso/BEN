@@ -136,7 +136,11 @@ export function ProjetoDetalhePage() {
                 <p className="local-texto">{projeto.stand_projeto}</p>
                 <button
                   className="btn btn-gradiente btn-pequeno"
-                  onClick={() => console.log("mapa", projeto.stand_projeto)}
+                    onClick={() =>
+    navigate(
+      `/mapa?stand=${encodeURIComponent(projeto.stand_projeto)}&projeto=${encodeURIComponent(id)}`
+    )
+  }
                 >
                   <MapPin size={16} /> Ver no mapa
                 </button>
